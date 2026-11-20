@@ -1,0 +1,10 @@
+import os
+import pathlib
+import shutil
+
+out = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
+os.makedirs(out, exist_ok=True)
+shutil.copyfile(
+    pathlib.Path(__file__).with_name("entry.png"),
+    os.path.join(out, "entry.png"),
+)
