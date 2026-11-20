@@ -1,0 +1,95 @@
+/* Token Radar — indigo and amber. No network, no framework. */
+:root {
+  --canvas: #eef0fb;
+  --surface: #ffffff;
+  --ink: #171a2e;
+  --muted: #5b6178;
+  --border: #d5d9ec;
+  --accent: #2b3a9e;
+  --amber: #c47f12;
+  --good: #0f7a4d;
+  --bad: #b23b2e;
+  --radius: 10px;
+  --font-body: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-num: ui-monospace, "SF Mono", Menlo, monospace;
+}
+* { box-sizing: border-box; }
+html { color-scheme: light; }
+body { margin: 0; background: var(--canvas); color: var(--ink); font: 400 15px/1.5 var(--font-body); }
+h1, h2, h3 { margin: 0; letter-spacing: -0.02em; }
+h1 { font-size: 30px; line-height: 1.15; }
+h2 { font-size: 20px; }
+h3 { font-size: 16px; }
+p { margin: 0; }
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+.skip { position: absolute; left: -9999px; top: 0; padding: 8px 16px; background: var(--surface); border: 1px solid var(--border); z-index: 20; }
+.skip:focus { left: 16px; top: 16px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.shell { max-width: 1340px; margin: 0 auto; padding: 24px 32px 48px; }
+.top { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 16px; padding-bottom: 16px; border-bottom: 2px solid var(--accent); }
+.brand { display: flex; align-items: center; gap: 12px; }
+.mark { width: 14px; height: 14px; border-radius: 50%; background: var(--amber); flex: none; box-shadow: 0 0 0 4px rgba(196, 127, 18, 0.2); }
+.brand-name { font-family: var(--font-num); font-size: 13px; color: var(--muted); }
+.top-meta { display: flex; flex-wrap: wrap; gap: 12px; justify-content: flex-end; color: var(--muted); font-size: 13px; }
+.lede { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.6fr); gap: 32px; padding: 24px 0 20px; }
+.lede p { color: var(--muted); max-width: 62ch; margin-top: 8px; }
+.facts { display: grid; gap: 8px; align-content: start; border-left: 1px solid var(--border); padding-left: 20px; }
+.fact { display: flex; justify-content: space-between; gap: 12px; }
+.fact b { font-family: var(--font-num); font-size: 15px; font-weight: 500; }
+.fact span { color: var(--muted); font-size: 13px; }
+.controls { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; padding: 16px 0; border-top: 1px solid var(--border); }
+.field { display: grid; gap: 4px; }
+.field label { color: var(--muted); font-size: 12px; }
+.field input, .field select { min-height: 36px; padding: 0 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); min-width: 170px; }
+.field input { min-width: 260px; }
+.tabs { display: flex; gap: 4px; padding: 3px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+.tabs button { min-height: 30px; padding: 0 12px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); }
+.tabs button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.count { margin-left: auto; color: var(--muted); font-size: 13px; align-self: center; }
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { padding: 12px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: middle; }
+th { color: var(--muted); font-size: 12px; font-weight: 500; white-space: nowrap; }
+th button { border: 0; background: none; padding: 0; color: inherit; font: inherit; }
+th button:hover { color: var(--ink); }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: #f6f7fd; }
+tbody tr[data-selected="true"] { background: #e8ebfb; }
+.num { font-family: var(--font-num); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.name { display: grid; gap: 2px; }
+.name b { font-weight: 600; }
+.sub { color: var(--muted); font-size: 12px; }
+.pos { color: var(--good); }
+.neg { color: var(--bad); }
+.bar { width: 120px; height: 6px; border-radius: 3px; background: #e3e6f5; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); }
+.tag { display: inline-block; padding: 2px 8px; border-radius: 20px; background: #fdf3dd; color: #7a4d00; font-size: 12px; }
+.model { margin-top: 16px; padding: 20px; display: grid; gap: 12px; }
+.formula { font-family: var(--font-num); font-size: 13px; line-height: 1.7; color: var(--muted); overflow-wrap: anywhere; }
+.sandbox { display: flex; flex-wrap: wrap; gap: 16px; }
+.sandbox label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+.sandbox input { width: 180px; }
+.empty { padding: 48px 20px; text-align: center; display: grid; gap: 12px; justify-items: center; }
+.empty p { color: var(--muted); }
+.button { min-height: 36px; padding: 0 16px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+.button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.detail { position: fixed; top: 0; right: 0; bottom: 0; width: min(540px, 94vw); z-index: 10; background: var(--surface); border-left: 1px solid var(--border); padding: 20px; overflow-y: auto; }
+.detail[hidden] { display: none; }
+.detail-head { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
+.close { flex: none; min-width: 32px; min-height: 32px; padding: 0 8px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+.detail-section { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+.detail-section h3 { margin-bottom: 8px; }
+.equation { display: grid; gap: 8px; font-family: var(--font-num); font-size: 13px; }
+.equation div { display: flex; justify-content: space-between; gap: 12px; }
+.equation span { color: var(--muted); }
+.steps { margin: 0; padding-left: 20px; display: grid; gap: 12px; }
+.steps li { padding-left: 4px; }
+.note { color: var(--muted); font-size: 13px; }
+@media (max-width: 900px) {
+  .shell { padding: 16px; }
+  .lede { grid-template-columns: 1fr; gap: 16px; }
+  .facts { border-left: 0; border-top: 1px solid var(--border); padding-left: 0; padding-top: 16px; }
+  .field input { min-width: 0; width: 100%; }
+}
